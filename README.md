@@ -13,10 +13,17 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPLv3-blue.svg" alt="License"></a>
 </p>
 
-<p>fleet+ es una aplicación de escritorio que centraliza todas las herramientas esenciales para gestionar 
+---
+
+<p>
+
+  fleet+ es una aplicación de escritorio que centraliza todas las herramientas esenciales para gestionar 
     mantenimientos de vehículos, proveedores y reportes en un solo lugar, con una interfaz moderna y personalizable 
     gracias a customtkinter. Olvídate de múltiples hojas de cálculo y ventanas: aquí tienes todo lo que necesitas.
 </p>
+
+---
+
 <h2>Apoya fleet+</h2>
 <p>
 Si encuentras fleet+ útil y quieres apoyar su desarrollo, ¡considera hacer una contribución! Tu apoyo ayuda a mantener 
@@ -30,12 +37,17 @@ el proyecto activo y en constante mejora. Próximamente, se implementarán nueva
   <a href="https://www.buymeacoffee.com/albcano83a">
     <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Buy-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee">
   </a>
-
-  ![captura](/src/interfaz.png)
-  <p style="font-size: 12px;"><i>(Captura de pantalla con la interfaz principal)</i></p>
-
 </p>
 
+---
+
+<p align="center">
+  <img src="src/interfaz.png" alt="Interfaz principal" width="640"/>
+  <br/>
+  <span style="font-size: 12px;"><i>(Interfaz principal de fleet+)</i></span>
+</p>
+
+---
 
 ## Características principales
 
@@ -57,6 +69,7 @@ el proyecto activo y en constante mejora. Próximamente, se implementarán nueva
 ### Instalación de dependencias
 
 ```bash
+
 python3 -m venv venv
 source venv/bin/activate   # Linux / macOS
 # .\venv\Scripts\activate  # Windows
@@ -64,3 +77,29 @@ source venv/bin/activate   # Linux / macOS
 pip install -r requirements.txt
 
 ```
+
+## Ejecución
+
+```bash
+
+python3 app.py
+
+```
+
+La aplicación creará automáticamente la base de datos en caso de no existir.
+
+## Roadmap
+
+- Calendario General de Vehículos (CGV), con avisos y recordatorios.
+- Integración con app móvil complementaria.
+- Sincronización y obtención de datos desde sensores.
+
+## Contrubuir
+
+¡Las contribuciones son bienvenidas!
+
+1. Abre un **issue** con tu propuesta o reporte.
+2. Haz un **fork** del repositorio.
+3. Envía un **pull request** describiendo tus cambios.
+
+Por favor, mantén el estilo del proyecto y sigue PEP8.
