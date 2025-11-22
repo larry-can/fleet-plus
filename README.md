@@ -2,9 +2,10 @@
   <img src="src/fleet_plus.png" alt="fleet +" width="200"/>
 </p>
 
-<h1 align="center">Gestión integral de flotas.</h1>
+<h1 align="center">Gestión integral de flotas</h1>
 <p align="center">
-  Una aplicación de escritorio open-source diseñada para gestores de flotas, talleres y empresas de transporte.
+  Una aplicación de escritorio open-source diseñada para gestores de flotas, talleres y empresas de transporte, incluso,
+  para aquellos particulares que deseen llevar un control de sus vehículos (mantenimiento, renovación de seguro, gastos, etc.).
 </p>
 
 <p align="center">
@@ -12,17 +13,14 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPLv3-blue.svg" alt="License"></a>
 </p>
 
-<p>fleet+ es una potente aplicación de escritorio que centraliza todas las herramientas esenciales para gestionar 
+<p>fleet+ es una aplicación de escritorio que centraliza todas las herramientas esenciales para gestionar 
     mantenimientos de vehículos, proveedores y reportes en un solo lugar, con una interfaz moderna y personalizable 
     gracias a customtkinter. Olvídate de múltiples hojas de cálculo y ventanas: aquí tienes todo lo que necesitas.
 </p>
 <h2>Apoya fleet+</h2>
 <p>
 Si encuentras fleet+ útil y quieres apoyar su desarrollo, ¡considera hacer una contribución! Tu apoyo ayuda a mantener 
-el proyecto activo y en constante mejora. Próximamente, se implementarán nuevas funcionalidades y mejoras basadas en los 
-comentarios de la comunidad. Como líneas de desarrollo futuras, se planea integrar notificaciones automáticas para mantenimientos, 
-llamado Calendario General de Vehículos (CGV) y una app móvil complementaria para gestionar la flota desde cualquier lugar. Además, 
-estamos investigando para implementar la automatización de recogida de datos por medio de sensores.
+el proyecto activo y en constante mejora. Próximamente, se implementarán nuevas funcionalidades y mejoras. Como líneas de desarrollo futuras, se planea integrar notificaciones automáticas para mantenimientos, llamado Calendario General de Vehículos (CGV), una app móvil complementaria para gestionar la flota desde cualquier lugar y la recopilación automática de datos por medio de sensores. 
 </p>
 
 <p align="center">
@@ -34,9 +32,10 @@ estamos investigando para implementar la automatización de recogida de datos po
   </a>
 
   ![captura](/src/interfaz.png)
+  <p style="font-size: 12px;"><i>(Captura de pantalla con la interfaz principal)</i></p>
+
 </p>
 
----
 
 ## Características principales
 
@@ -47,9 +46,8 @@ estamos investigando para implementar la automatización de recogida de datos po
 - Interfaz moderna y personalizable con **customtkinter**.  
 - Base de datos **SQLite autogenerada** si no existe.
 
----
 
-## 🧰 Tecnologías y dependencias
+## Tecnologías y dependencias
 
 - **Python 3.10+**  
 - **customtkinter** — interfaz gráfica moderna  
@@ -65,38 +63,4 @@ source venv/bin/activate   # Linux / macOS
 
 pip install -r requirements.txt
 
-
-
-
-# fleet +
-
-**fleet +** es una aplicación de escritorio desarrollada en Python para gestionar el mantenimiento de flotas y generar reportes en PDF. Utiliza **customtkinter** para la interfaz gráfica y **sqlite3** como base de datos.
-
----
-
-## Características principales
-
-- Registro y gestión de mantenimientos de vehículos.  
-- Gestión de proveedores, componentes y productos.  
-- Búsqueda, filtrado y actualización de registros.  
-- Generación de reportes en PDF mediante **reportlab**.  
-- Interfaz moderna y personalizable con **customtkinter**.  
-- Base de datos **SQLite autogenerada** si no existe.
-
----
-
-## Tecnologías y dependencias
-
-- **Python 3.10+**
-- `customtkinter` — interfaz gráfica moderna.  
-- `sqlite3` — almacenamiento ligero integrado.  
-- `reportlab` — generación de PDFs.  
-
-### Instalación de dependencias
-
-```bash
-python3 -m venv venv
-source venv/bin/activate   # Linux / macOS
-# .\venv\Scripts\activate  # Windows
-
-pip install -r requirements.txt
+```
