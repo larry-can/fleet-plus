@@ -94,7 +94,7 @@ La aplicación creará automáticamente la base de datos en caso de no existir.
 - Integración con app móvil complementaria.
 - Sincronización y obtención de datos desde sensores.
 
-## Contrubuir
+## Contribuir
 
 ¡Las contribuciones son bienvenidas!
 
