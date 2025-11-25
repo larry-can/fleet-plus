@@ -11,6 +11,8 @@
 <p align="center">
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.10+-blue.svg" alt="Python 3.10+"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPLv3-blue.svg" alt="License"></a>
+  <a href="https://github.com/larry-can/fleet-plus/issues"><img src="https://img.shields.io/github/issues/larry-can/fleet-plus" alt="Issues"></a>
+  <a href="https://github.com/larry-can/fleet-plus/pulls"><img src="https://img.shields.io/github/issues-pr/larry-can/fleet-plus" alt="Pull Requests"></a>
 </p>
 
 ---
