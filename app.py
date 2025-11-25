@@ -4,10 +4,8 @@ from datetime import datetime, timedelta
 import sqlite3
 import os
 
-# --- Configuración de CustomTkinter ---
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
-
 
 # Ruta base del proyecto y BD
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -218,10 +216,9 @@ class MantenimientoApp:
             print("Error al actualizar combo de productos:", e)
             self.combo_mant_producto["values"] = []
 
-    # ---------------------------------------------------------------------
+
     # PESTAÑA VEHÍCULOS
-    # ---------------------------------------------------------------------
-    
+
     def crear_tab_coches(self):
         # --- FRAME PRINCIPAL CON SCROLL ---
         canvas = ctk.CTkCanvas(self.tab_coches, bg="#242424", highlightthickness=0)
@@ -239,7 +236,6 @@ class MantenimientoApp:
         # Vincular el frame al canvas
         canvas_window = canvas.create_window((0, 0), window=frame_contenedor, anchor="n")
 
-
         # Actualizar el scrollregion automáticamente
         def _on_frame_configure(event):
             canvas.configure(scrollregion=canvas.bbox("all"))
@@ -251,8 +247,7 @@ class MantenimientoApp:
         frame_contenedor.bind("<Configure>", _on_frame_configure)
         canvas.bind("<Configure>", _on_canvas_configure)
 
-        
-        # Permitir scroll con la rueda del ratón
+
         # --- Permitir scroll con la rueda del ratón desde cualquier parte ---
 
         def _on_mousewheel(event):
@@ -488,9 +483,8 @@ class MantenimientoApp:
             print("Error al mostrar facturas:", e)
 
 
-    # ---------------------------------------------------------------------
     # PESTAÑA GESTIÓN VEHÍCULOS
-    # ---------------------------------------------------------------------
+
     def crear_tab_agregar_coche(self):
         frame = ctk.CTkFrame(self.tab_agregar_coche)
         frame.pack(pady=30)
@@ -551,10 +545,6 @@ class MantenimientoApp:
         frame.grid_columnconfigure(0, weight=0)
         frame.grid_columnconfigure(1, weight=1)
 
-
-    # ---------------------------------------------------------------------
-    # FUNCIONES AUXILIARES
-    # -------------------------------------------------------------------
     def guardar_coche(self):
         datos = {k: v.get().strip() for k, v in self.vars_coche.items()}
 
@@ -714,9 +704,7 @@ class MantenimientoApp:
             messagebox.showerror("Error", f"No se pudo eliminar el coche: {e}")
 
 
-    # ---------------------------------------------------------------------
     # TAB COMPONENTES
-    # ---------------------------------------------------------------------
 
     def crear_tab_agregar_componente(self):
         frame = ctk.CTkFrame(self.tab_agregar_componente)
@@ -770,10 +758,6 @@ class MantenimientoApp:
 
         frame.grid_columnconfigure(0, weight=0)
         frame.grid_columnconfigure(1, weight=1)
-
-    # ---------------------------------------------------------------------
-    # FUNCIONES AUXILIARES: TipoComponente
-    # ---------------------------------------------------------------------
 
     def obtener_tipos_componentes(self):
         """Devuelve la lista de tipos de componentes registrados."""
@@ -950,9 +934,7 @@ class MantenimientoApp:
             print("Error al recargar tipos en mantenimientos:", e)
 
 
-    # ---------------------------------------------------------------------
     # TAB AÑADIR PRODUCTO
-    # ---------------------------------------------------------------------
 
     def crear_tab_agregar_producto(self):
         frame_scroll = ctk.CTkScrollableFrame(self.tab_agregar_producto)
@@ -983,7 +965,7 @@ class MantenimientoApp:
         campos = ["Tipo de componente:", "Marca:", "Modelo:", "Tipo:", "Vida útil (km):", "Vida útil (meses):", "Descripción:"]
         self.vars_producto = {}
 
-        # Creamos el combo vacío, lo rellenaremos dinámicamente
+        # Creamos el combo vacío, lo rellenamos dinámicamente
         self.combo_producto_tipo = None
 
 
@@ -1008,9 +990,9 @@ class MantenimientoApp:
             row=len(campos)+1, column=0, columnspan=2, pady=20
         )
 
-        # ---------------------------------------------------------------------
-        # SECCIÓN: GESTIÓN DE PRODUCTOS EXISTENTES (MODIFICAR / ELIMINAR)
-        # ---------------------------------------------------------------------
+
+        # SECCIÓN MODIFICAR / ELIMINAR
+
         ctk.CTkLabel(frame, text="Gestión de productos existentes", font=("Arial", 18, "bold")).grid(
             row=len(campos)+2, column=0, columnspan=2, pady=(30, 10)
         )
@@ -1020,9 +1002,9 @@ class MantenimientoApp:
         gestion_frame.grid(row=len(campos)+3, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
         gestion_frame.grid_columnconfigure((0, 1), weight=1)  # permite que ambas columnas se repartan espacio
 
-        # ---------------------------------------------------------------------
+
         # SUBFRAME IZQUIERDO - MODIFICAR PRODUCTO
-        # ---------------------------------------------------------------------
+
         frame_modificar = ctk.CTkFrame(gestion_frame)
         frame_modificar.grid(row=0, column=0, padx=10, pady=10, sticky="n")
 
@@ -1049,9 +1031,9 @@ class MantenimientoApp:
 
         ctk.CTkButton(frame_modificar, text="Guardar cambios", command=self.modificar_producto).pack(pady=10)
 
-        # ---------------------------------------------------------------------
+
         # SUBFRAME DERECHO - ELIMINAR PRODUCTO
-        # ---------------------------------------------------------------------
+
         frame_eliminar = ctk.CTkFrame(gestion_frame)
         frame_eliminar.grid(row=0, column=1, padx=10, pady=10, sticky="n")
 
@@ -1066,7 +1048,6 @@ class MantenimientoApp:
         # Monitorear cambios de pestaña y actualizar los tipos si se entra en "Añadir producto"
         self.root.after(500, self.verificar_pestana_activa)
 
-
     def verificar_pestana_activa(self):
         if self.tabview.get() == "➕ Añadir producto":
             self.recargar_tipos_en_producto()
@@ -1080,7 +1061,6 @@ class MantenimientoApp:
             self.recargar_productos_existentes()
         except Exception:
             pass
-
 
     def actualizar_tipos_componente_en_productos(self, event=None):
         """Refresca los tipos de componente en el combo de productos."""
@@ -1193,7 +1173,7 @@ class MantenimientoApp:
             JOIN TipoComponente tc ON p.id_tipo = tc.id_tipo
         """).fetchall()
 
-        # Crear el diccionario mapeando texto visible → id_producto
+        # Crear el diccionario mapeando texto visible - id_producto
         self.mapa_productos = {
             f"{r['tipo_componente']} / {r['marca']} {r['modelo']} {r['tipo']}": r['id_producto']
             for r in productos
@@ -1319,7 +1299,7 @@ class MantenimientoApp:
             JOIN TipoComponente tc ON p.id_tipo = tc.id_tipo
         """).fetchall()
 
-        # Crear el diccionario mapeando texto visible → id_producto
+        # Crear el diccionario mapeando texto visible - id_producto
         self.mapa_productos_eliminar = {
             f"{r['tipo_componente']} / {r['marca']} {r['modelo']} {r['tipo']}": r['id_producto']
             for r in productos
@@ -1365,9 +1345,8 @@ class MantenimientoApp:
             print("Error al recargar productos:", e)
 
 
-    # ---------------------------------------------------------------------
     # TAB AÑADIR MANTENIMIENTO
-    # ---------------------------------------------------------------------
+
     def crear_tab_agregar_mantenimiento(self):
         frame = ctk.CTkFrame(self.tab_agregar_mantenimiento)
         frame.pack(pady=30)
@@ -1414,9 +1393,9 @@ class MantenimientoApp:
         # Botón guardar
         ctk.CTkButton(frame, text="Guardar mantenimiento", command=self.guardar_mantenimiento).grid(row=8, column=0, columnspan=2, pady=20)
 
-        # ---------------------------------------------------------------------
-        # SECCIÓN: GESTIÓN DE MANTENIMIENTOS EXISTENTES
-        # ---------------------------------------------------------------------
+
+        # SECCIÓN: GESTIÓN DE MANTENIMIENTOS
+
         ctk.CTkLabel(frame, text="Gestión de mantenimientos existentes", font=("Arial", 18, "bold")).grid(
             row=9, column=0, columnspan=2, pady=(30, 10)
         )
@@ -1425,9 +1404,9 @@ class MantenimientoApp:
         gestion_frame.grid(row=10, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
         gestion_frame.grid_columnconfigure((0, 1), weight=1)
 
-        # ---------------------------------------------------------------------
+
         # SUBFRAME IZQUIERDO - MODIFICAR MANTENIMIENTO
-        # ---------------------------------------------------------------------
+
         frame_modificar = ctk.CTkFrame(gestion_frame)
         frame_modificar.grid(row=0, column=0, padx=10, pady=10, sticky="n")
 
@@ -1448,9 +1427,9 @@ class MantenimientoApp:
 
         ctk.CTkButton(frame_modificar, text="Guardar cambios", command=self.modificar_mantenimiento).pack(pady=10)
 
-        # ---------------------------------------------------------------------
+
         # SUBFRAME DERECHO - ELIMINAR MANTENIMIENTO
-        # ---------------------------------------------------------------------
+
         frame_eliminar = ctk.CTkFrame(gestion_frame)
         frame_eliminar.grid(row=0, column=1, padx=10, pady=10, sticky="n")
 
@@ -1601,7 +1580,7 @@ class MantenimientoApp:
             ORDER BY C.matricula ASC, M.fecha DESC
         """).fetchall()
 
-        # Crear mapa: texto visible → id_mantenimiento
+        # Crear mapa: texto visible - id_mantenimiento
         self.mapa_mantenimientos = {
             f"{r['matricula']} / {r['tipo_componente']}, {r['marca']} {r['modelo']} {r['tipo']} ({r['fecha']})": r['id_mantenimiento']
             for r in mantenimientos if r['matricula'] and r['tipo_componente']
@@ -1671,7 +1650,7 @@ class MantenimientoApp:
             ORDER BY C.matricula ASC, M.fecha DESC
         """).fetchall()
 
-        # Crear mapa: texto visible → id_mantenimiento
+        # Crear mapa: texto visible - id_mantenimiento
         self.mapa_mant_eliminar = {
             f"{r['matricula']} / {r['tipo_componente']}, {r['marca']} {r['modelo']} {r['tipo']} ({r['fecha']})": r['id_mantenimiento']
             for r in mantenimientos if r['matricula'] and r['tipo_componente']
@@ -1707,9 +1686,9 @@ class MantenimientoApp:
             print("Error al refrescar la pestaña Vehículos tras eliminar mantenimiento:", e)
 
 
-    # ---------------------------------------------------------------------
+
     # TAB OBLIGACIONES
-    # ---------------------------------------------------------------------  
+ 
     def crear_tab_obligaciones(self):
         frame_scroll = ctk.CTkScrollableFrame(self.tab_obligaciones)
         frame_scroll.pack(fill="both", expand=True, padx=20, pady=20)
@@ -1729,9 +1708,9 @@ class MantenimientoApp:
         frame_scroll.bind_all("<Button-4>", _on_mousewheel)
         frame_scroll.bind_all("<Button-5>", _on_mousewheel)
 
-        # ---------------------------------------------------------------------
+
         # SECCIÓN: AÑADIR NUEVA OBLIGACIÓN
-        # ---------------------------------------------------------------------
+
         ctk.CTkLabel(frame, text="Registrar nueva obligación", font=("Arial", 18, "bold")).grid(row=0, column=0, columnspan=2, pady=10)
 
         campos = ["Coche:", "Tipo:", "Descripción:", "Fecha inicio:", "Fecha vencimiento:"]
@@ -1768,9 +1747,9 @@ class MantenimientoApp:
             row=len(campos)+2, column=0, columnspan=2, pady=20
         )
 
-        # ---------------------------------------------------------------------
+
         # SECCIÓN: GESTIÓN DE OBLIGACIONES (MODIFICAR / ELIMINAR)
-        # ---------------------------------------------------------------------
+
         ctk.CTkLabel(frame, text="Gestión de obligaciones existentes", font=("Arial", 18, "bold")).grid(
             row=len(campos)+3, column=0, columnspan=2, pady=(30, 10)
         )
@@ -1779,9 +1758,9 @@ class MantenimientoApp:
         gestion_frame.grid(row=len(campos)+4, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
         gestion_frame.grid_columnconfigure((0, 1), weight=1)
 
-        # ---------------------------------------------------------------------
+
         # SUBFRAME IZQUIERDO - MODIFICAR OBLIGACIÓN
-        # ---------------------------------------------------------------------
+
         frame_modificar = ctk.CTkFrame(gestion_frame)
         frame_modificar.grid(row=0, column=0, padx=10, pady=10, sticky="n")
 
@@ -1804,9 +1783,9 @@ class MantenimientoApp:
 
         ctk.CTkButton(frame_modificar, text="Guardar cambios", command=self.modificar_obligacion).pack(pady=10)
 
-        # ---------------------------------------------------------------------
+
         # SUBFRAME DERECHO - ELIMINAR OBLIGACIÓN
-        # ---------------------------------------------------------------------
+
         frame_eliminar = ctk.CTkFrame(gestion_frame)
         frame_eliminar.grid(row=0, column=1, padx=10, pady=10, sticky="n")
 
@@ -1935,12 +1914,10 @@ class MantenimientoApp:
             self.actualizar_combo_obligaciones_eliminar()
 
 
-    # ---------------------------------------------------------------------
     # PESTAÑA PROVEEDORES
-    # --------------------------------------------------------------------- 
 
     def crear_tab_proveedores(self):
-        # La pestaña ya está creada en el __init__, así que no la añadimos otra vez
+
         tab = self.tab_proveedores
 
         # Frame superior: formulario
@@ -2082,9 +2059,7 @@ class MantenimientoApp:
         self.factura_proveedor_cb["values"] = list(self.proveedor_dict.keys())
 
 
-    # --------------------------------------------------------------------
     # PESTAÑA FACTURAS
-    # ---------------------------------------------------------------------
 
     def crear_tab_facturas(self):
 
@@ -2315,9 +2290,8 @@ class MantenimientoApp:
                 var.set("")
         self.tree_facturas.selection_remove(self.tree_facturas.selection())
 
-    # ---------------------------------------------------------------------
+
     # TAB GASTOS
-    # ---------------------------------------------------------------------
     
     def crear_tab_gastos(self):
     
@@ -2486,16 +2460,16 @@ class MantenimientoApp:
                 var.set("")
         self.tree_gastos.selection_remove(self.tree_gastos.selection())
 
-    # ---------------------------------------------------------------------
+
     # FUNCIONES BASE DE DATOS Y PDF
-    # ---------------------------------------------------------------------
+
     def cargar_coches(self):
         """Carga la lista de coches en el combo principal, sin seleccionar ninguno al inicio."""
         cursor = self.conn.execute("SELECT matricula, marca, modelo FROM Coche ORDER BY matricula")
         coches = [f"{row['matricula']} ({row['marca']} {row['modelo']})" for row in cursor.fetchall()]
         self.combo_coche['values'] = coches
 
-        # Limpia la selección visualmente (aunque haya coches)
+        # Limpia la selección visualmente (aunque haya vehículos)
         self.combo_coche.set("")  
         self.coche_var.set("")  
 
@@ -2522,7 +2496,7 @@ class MantenimientoApp:
         ctk.CTkLabel(self.frame_mantenimientos, text="Mantenimientos", font=("Arial", 20, "bold"))\
             .grid(row=0, column=0, columnspan=6, pady=(0, 10))
 
-        # Obtener kilómetros actuales del coche
+        # Obtener kilómetros actuales del vehículo
         cursor = self.conn.execute("SELECT km_actuales, fecha_matriculacion FROM Coche WHERE matricula = ?", (matricula,))
         row = cursor.fetchone()
         if row:
@@ -2718,9 +2692,9 @@ class MantenimientoApp:
             elements.extend([title, subtitle, Spacer(1, 16)])
 
 
-            # ===============================================================
-            # 1️⃣ MANTENIMIENTOS
-            # ===============================================================
+
+            # MANTENIMIENTOS
+
             elements.append(Paragraph("<b>Mantenimientos</b>", styles['Heading2']))
             elements.append(Spacer(1, 8))
 
@@ -2771,9 +2745,9 @@ class MantenimientoApp:
             else:
                 elements.append(Paragraph("No hay mantenimientos registrados.", styles['Normal']))
 
-            # ===============================================================
-            # 2️⃣ OBLIGACIONES
-            # ===============================================================
+
+            # OBLIGACIONES
+
             elements.append(Spacer(1, 20))
             elements.append(Paragraph("<b>Obligaciones</b>", styles['Heading2']))
             elements.append(Spacer(1, 8))
@@ -2810,9 +2784,9 @@ class MantenimientoApp:
             else:
                 elements.append(Paragraph("No hay obligaciones registradas.", styles['Normal']))
 
-            # ===============================================================
-            # 3️⃣ GASTOS
-            # ===============================================================
+
+            # GASTOS
+
             elements.append(Spacer(1, 20))
             elements.append(Paragraph("<b>Gastos</b>", styles['Heading2']))
             elements.append(Spacer(1, 8))
@@ -2863,9 +2837,9 @@ class MantenimientoApp:
             else:
                 elements.append(Paragraph("No hay gastos registrados.", styles['Normal']))
 
-            # ===============================================================
-            # 4️⃣ FACTURAS
-            # ===============================================================
+
+            # FACTURAS
+
             elements.append(Spacer(1, 20))
             elements.append(Paragraph("<b>Facturas asociadas</b>", styles['Heading2']))
             elements.append(Spacer(1, 8))
@@ -2918,17 +2892,15 @@ class MantenimientoApp:
                 elements.append(Paragraph("No hay facturas registradas.", styles['Normal']))
 
 
-            # ===============================================================
             # TOTAL GENERAL (Gastos + Facturas)
-            # ===============================================================
+
             total_general = total_gastos + total_facturas
             elements.append(Spacer(1, 15))
             elements.append(Paragraph(f"<b>Total Coste (Gastos + Facturas):</b> {total_general:.2f} €", styles['Heading2']))
 
 
-            # ===============================================================
             # Generar PDF
-            # ===============================================================
+
             doc.build(elements)
             messagebox.showinfo("PDF generado", f"✅ PDF '{pdf_name}' generado correctamente.")
 
