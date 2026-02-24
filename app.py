@@ -183,7 +183,7 @@ class MantenimientoApp:
             return
 
         try:
-            self.conn.execute("UPDATE Coche SET km = ? WHERE matricula = ?", (nuevo_km, matricula))
+            self.conn.execute("UPDATE Coche SET km_actuales = ? WHERE matricula = ?", (nuevo_km, matricula))
             self.conn.commit()
             messagebox.showinfo("Éxito", f"Kilometraje actualizado a {nuevo_km} km para {matricula}.")
         except Exception as e:
